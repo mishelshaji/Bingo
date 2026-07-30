@@ -15,6 +15,7 @@ public static class ApplicationDependencies
         services.AddScoped<IContactRequestService, ContactRequestService>();
         services.AddScoped<IContactMessageService, ContactMessageService>();
         services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<IStateService, StateService>();
         return services;
     }
 }

@@ -3,11 +3,13 @@ using Bingo.Application.Dtos.Category;
 using Bingo.Application.Types;
 using Bingo.Core.Domains;
 using Bingo.Infrastructure.Data;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bingo.Application.Services;
 
-public class CategoryService(ApplicationDbContext db): ICategoryService
+public class CategoryService(ApplicationDbContext db,
+    IValidator<CategoryCreateDto> categoryValidator): ICategoryService
 {
     private readonly IQueryable<Category> _baseQuery = db.Categories
         .Where(c => c.DeletedAt == null);
@@ -49,12 +51,10 @@ public class CategoryService(ApplicationDbContext db): ICategoryService
     public async Task<ServiceResult<CategoryViewDto?>> CreateAsync(CategoryCreateDto dto, CancellationToken cancellationToken)
     {
         // STEP 1: Validate Name and Slug.
-        if (string.IsNullOrWhiteSpace(dto.Name))
-            return ServiceResult<CategoryViewDto?>.ValidationErrorResult(["Invalid name"]);
+        var validationResult = await categoryValidator.ValidateAsync(dto, cancellationToken);
+        if(!validationResult.IsValid)
+            return ServiceResult<CategoryViewDto?>.ValidationErrorResult(validationResult.Errors.Select(e=>e.ErrorMessage));
         
-        if (string.IsNullOrWhiteSpace(dto.Slug))
-            return ServiceResult<CategoryViewDto?>.ValidationErrorResult(["Invalid slug"]);
-
         // STEP 2: Ensure the uniqueness of the category name and slug.
         var categoryExists = await _baseQuery
             .AnyAsync(c => c.Name == dto.Name || c.Slug == dto.Slug, cancellationToken);

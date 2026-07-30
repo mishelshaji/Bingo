@@ -1,5 +1,6 @@
 ﻿using Bingo.Application.Abstractions;
 using Bingo.Application.Dtos.Country;
+using Bingo.Application.Dtos.State;
 using Bingo.Application.Types;
 using Bingo.Core.Domains;
 using Bingo.Infrastructure.Data;
@@ -32,13 +33,20 @@ public class CountryService(ApplicationDbContext db,
     public async Task<ServiceResult<CountryViewDto?>> GetByIdAsync(long id, CancellationToken cancellationToken)
     {
         var country = await _baseQuery
+            .Include(c=>c.States)
             .Select(c=>new CountryViewDto()
             {
                 Id = c.Id,
                 Name = c.Name,
                 IsoCode = c.IsoCode,
                 PhoneCode = c.PhoneCode,
-                States = null
+                States = c.States.Select(s=>new StateViewDto()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    IsoCode = s.IsoCode,
+                    CountryId = s.CountryId
+                })
             }).FirstOrDefaultAsync(c=>c.Id == id, cancellationToken);
         
         if (country == null)
