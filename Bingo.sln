@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bingo.WebApi", "Bingo.WebApi\Bingo.WebApi.csproj", "{B932F864-9CFC-4CBB-86FA-C72C1C062665}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bingo.Application", "Bingo.Application\Bingo.Application.csproj", "{97E5872D-46B1-49FE-9F9D-2168D58BC66A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bingo.Infrastructure", "Bingo.Infrastructure\Bingo.Infrastructure.csproj", "{9270B92F-B3D1-4BA6-9655-84B70C4F8B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bingo.Core", "Bingo.Core\Bingo.Core.csproj", "{C867375F-5455-4E6B-A768-09A8B08BE7CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B932F864-9CFC-4CBB-86FA-C72C1C062665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B932F864-9CFC-4CBB-86FA-C72C1C062665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B932F864-9CFC-4CBB-86FA-C72C1C062665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B932F864-9CFC-4CBB-86FA-C72C1C062665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E5872D-46B1-49FE-9F9D-2168D58BC66A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E5872D-46B1-49FE-9F9D-2168D58BC66A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E5872D-46B1-49FE-9F9D-2168D58BC66A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E5872D-46B1-49FE-9F9D-2168D58BC66A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9270B92F-B3D1-4BA6-9655-84B70C4F8B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9270B92F-B3D1-4BA6-9655-84B70C4F8B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9270B92F-B3D1-4BA6-9655-84B70C4F8B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9270B92F-B3D1-4BA6-9655-84B70C4F8B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C867375F-5455-4E6B-A768-09A8B08BE7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C867375F-5455-4E6B-A768-09A8B08BE7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C867375F-5455-4E6B-A768-09A8B08BE7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C867375F-5455-4E6B-A768-09A8B08BE7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
