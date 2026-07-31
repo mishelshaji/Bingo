@@ -24,4 +24,6 @@ public class Category : DomainBase
     /// Gets or sets an optional description that provides additional details about the category.
     /// </summary>
     public string? Description { get; set; }
+
+    public IEnumerable<Product> Products { get; set; }
 }

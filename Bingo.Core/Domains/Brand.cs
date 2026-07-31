@@ -7,4 +7,5 @@ public class Brand : DomainBase
     public string? WebsiteUrl { get; set; }
     public string? LogoUrl { get; set; }
     public string? SupportEmail { get; set; }
+    public IEnumerable<Product> Products { get; set; }
 }

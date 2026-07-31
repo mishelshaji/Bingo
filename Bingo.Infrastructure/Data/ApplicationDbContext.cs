@@ -25,4 +25,6 @@ public class ApplicationDbContext: DbContext
     public DbSet<State> States { get; set; }
     public DbSet<ContactRequest> ContactRequests { get; set; }
     public DbSet<ContactMessage> ContactMessages { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductTag> ProductTags { get; set; }
 }
