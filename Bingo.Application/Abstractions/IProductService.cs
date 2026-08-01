@@ -7,4 +7,6 @@ public interface IProductService
 {
     Task<ServiceResult<long>> CreateAsync(ProductCreateDto dto, CancellationToken cancellationToken);
     Task<ServiceResult<ProductViewDto[]>> GetAllAsync(CancellationToken cancellationToken);
+    Task<ServiceResult<bool>> AddTagAsync(long productId, long tagId, CancellationToken cancellationToken);
+    Task<ServiceResult<bool>> RemoveTagAsync(long productId, long tagId, CancellationToken cancellationToken);
 }

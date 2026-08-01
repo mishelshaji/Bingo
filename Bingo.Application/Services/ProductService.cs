@@ -112,4 +112,11 @@ public class ProductService(ApplicationDbContext db, IValidator<ProductCreateDto
         await db.SaveChangesAsync(cancellationToken);
         return ServiceResult<long>.SuccessResult(product.Id);
     }
+
+    public async Task<ServiceResult<bool>> UpdateAsync(ProductUpdateDto dto, CancellationToken cancellationToken)
+    {
+        return default;
+    }
+
+    
 }

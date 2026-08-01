@@ -12,10 +12,13 @@ public class ProductsController(IProductService productService): ApplicationCont
         var res = await productService.GetAllAsync(cancellationToken);
         return ToActionResult(res);
     }
+    
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromBody]ProductCreateDto dto, CancellationToken cancellationToken)
     {
         var res = await productService.CreateAsync(dto, cancellationToken);
         return ToActionResult(res);
     }
+    
+    
 }

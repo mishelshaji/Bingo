@@ -1,7 +1,7 @@
 ﻿namespace Bingo.Core.Domains;
 
 /// <summary>
-/// Represents a category used to organize and classify related entities.
+/// Represents a product category used to organize and classify products.
 /// </summary>
 public class Category : DomainBase
 {
@@ -25,5 +25,8 @@ public class Category : DomainBase
     /// </summary>
     public string? Description { get; set; }
 
+    /// <summary>
+    /// Gets or sets the collection of products that belong to this category.
+    /// </summary>
     public IEnumerable<Product> Products { get; set; }
 }
