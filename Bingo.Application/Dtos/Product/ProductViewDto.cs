@@ -1,12 +1,13 @@
-﻿using Bingo.Core.Types;
+﻿using Bingo.Application.Dtos.Category;
+using Bingo.Application.Dtos.Tag;
+using Bingo.Core.Types;
 
-namespace Bingo.Core.Domains;
+namespace Bingo.Application.Dtos.Product;
 
-public class Product: DomainBase
+public class ProductViewDto
 {
     public long Id { get; set; }
     public string Name { get; set; }
-    public string NormalizedName { get; set; }
     public string? Slug { get; set; }
     public string? ShortDescription { get; set; }
     public string? DetailedDescription { get; set; }
@@ -15,12 +16,9 @@ public class Product: DomainBase
     public double? Height { get; set; }
     public double? Width { get; set; }
     public double? Weight { get; set; }
-    public double AverageRating { get; set; }
     public int Stock { get; set; }
     public ProductStatus Status { get; set; }
     public long? BrandId { get; set; }
-    public Brand? Brand { get; set; }
-    public long? CategoryId { get; set; }
-    public Category? Category { get; set; }
-    public ICollection<ProductTag>? ProductTags { get; set; }
+    public CategoryViewDto? Category { get; set; }
+    public IEnumerable<TagViewDto>? Tags { get; set; }
 }
