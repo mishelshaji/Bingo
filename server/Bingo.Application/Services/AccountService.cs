@@ -12,15 +12,18 @@ public class AccountService: IAccountService
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IValidator<UserLoginRequestDto> _loginRequestValidator;
+    private readonly ITokenService _tokenService;
 
     public AccountService(
         RoleManager<IdentityRole> roleManager,
         UserManager<ApplicationUser> userManager,
-        IValidator<UserLoginRequestDto> loginRequestValidator)
+        IValidator<UserLoginRequestDto> loginRequestValidator,
+        ITokenService tokenService)
     {
         _roleManager = roleManager;
         _userManager = userManager;
         _loginRequestValidator = loginRequestValidator;
+        _tokenService = tokenService;
     }
     
     public async Task<ServiceResult<bool>> RegisterAsync(UserCreateDto dto, CancellationToken cancellationToken)
@@ -66,7 +69,12 @@ public class AccountService: IAccountService
         var isValidPassword = await _userManager.CheckPasswordAsync(user, dto.Password);
         if (!isValidPassword)
             return ServiceResult<string>.UnauthorizedResult("Invalid details");
+
+        var roles = await _userManager.GetRolesAsync(user);
+        var tokenResult = _tokenService.CreateToken(user, roles);
+        if(!tokenResult.Success)
+            return ServiceResult<string>.UnauthorizedResult("Unable to generate token");
         
-        return ServiceResult<string>.SuccessResult("hjsgjd.sjhgj.sdfjhgfd");
+        return ServiceResult<string>.SuccessResult(tokenResult.Data);
     }
 }

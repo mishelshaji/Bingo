@@ -41,8 +41,11 @@ public static class ApplicationDependencies
         // Registers the ProductService.
         services.AddScoped<IProductService, ProductService>();
         
-        // Registers the AccountService
+        // Registers the AccountService.
         services.AddScoped<IAccountService, AccountService>();
+        
+        // Registers the TokenService.
+        services.AddScoped<ITokenService, TokenService>();
 
         // Returns the updated service collection.
         return services;
