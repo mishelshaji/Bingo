@@ -6,4 +6,5 @@ namespace Bingo.Application.Abstractions;
 public interface IAccountService
 {
     Task<ServiceResult<bool>> RegisterAsync(UserCreateDto dto, CancellationToken cancellationToken);
+    Task<ServiceResult<string>> AuthenticateAsync(UserLoginRequestDto dto, CancellationToken cancellationToken);
 }

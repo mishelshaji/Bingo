@@ -2,6 +2,7 @@
 using Bingo.Application.Dtos.User;
 using Bingo.Application.Types;
 using Bingo.Core.Domains;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 
 namespace Bingo.Application.Services;
@@ -10,13 +11,16 @@ public class AccountService: IAccountService
 {
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IValidator<UserLoginRequestDto> _loginRequestValidator;
 
     public AccountService(
         RoleManager<IdentityRole> roleManager,
-        UserManager<ApplicationUser> userManager)
+        UserManager<ApplicationUser> userManager,
+        IValidator<UserLoginRequestDto> loginRequestValidator)
     {
         _roleManager = roleManager;
         _userManager = userManager;
+        _loginRequestValidator = loginRequestValidator;
     }
     
     public async Task<ServiceResult<bool>> RegisterAsync(UserCreateDto dto, CancellationToken cancellationToken)
@@ -47,5 +51,32 @@ public class AccountService: IAccountService
         
         await _userManager.AddToRoleAsync(user, roleName);
         return ServiceResult<bool>.SuccessResult(true);
+    }
+
+    public async Task<ServiceResult<string>> AuthenticateAsync(UserLoginRequestDto dto, CancellationToken cancellationToken)
+    {
+        var validationResult = await _loginRequestValidator.ValidateAsync(dto, cancellationToken);
+        if(!validationResult.IsValid)
+            return ServiceResult<string>.ValidationErrorResult(validationResult.Errors.Select(e=>e.ErrorMessage));
+        
+        var user = await _userManager.FindByEmailAsync(dto.Email);
+        if (user == null)
+        {
+            var result = ServiceResult<string>.SuccessResult(null);
+            result.Success = false;
+            result.Message = "Invalid details";
+            return result;
+        }
+        
+        var isValidPassword = await _userManager.CheckPasswordAsync(user, dto.Password);
+        if (!isValidPassword)
+        {
+            var result = ServiceResult<string>.SuccessResult(null);
+            result.Success = false;
+            result.Message = "Invalid details";
+            return result;
+        }
+        
+        return ServiceResult<string>.SuccessResult("hjsgjd.sjhgj.sdfjhgfd");
     }
 }
