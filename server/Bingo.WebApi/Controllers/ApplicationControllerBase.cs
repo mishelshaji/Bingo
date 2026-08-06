@@ -22,6 +22,8 @@ public abstract class ApplicationControllerBase: ControllerBase
                 return Unauthorized(result);
             case ResultType.NotFound:
                 return NotFound(result);
+            case ResultType.Unauthorized:
+                return Unauthorized(result);
             case ResultType.Error:
             default:
                 throw new Exception(result.Message ?? "An error occured");

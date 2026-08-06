@@ -43,5 +43,10 @@ public enum ResultType
     /// <summary>
     /// Indicates that the operation failed due to an unexpected error.
     /// </summary>
-    Error = 7
+    Error = 7,
+    
+    /// <summary>
+    /// Indicates that the request was unauthorized.
+    /// </summary>
+    Unauthorized = 8,
 }

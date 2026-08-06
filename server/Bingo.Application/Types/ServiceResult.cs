@@ -174,4 +174,24 @@ public class ServiceResult<TData>
             Data = data
         };
     }
+    
+    /// <summary>
+    /// Creates a result indicating that the request was unauthorized.
+    /// </summary>
+    /// <param name="message">
+    /// An optional success message.
+    /// </param>
+    /// <returns>
+    /// A deleted <see cref="ServiceResult{TData}"/>.
+    /// </returns>
+    public static ServiceResult<TData> UnauthorizedResult(string? message = null)
+    {
+        // Creates and returns a deleted result.
+        return new ServiceResult<TData>
+        {
+            Success = true,
+            Message = message,
+            ResultType = ResultType.Unauthorized,
+        };
+    }
 }

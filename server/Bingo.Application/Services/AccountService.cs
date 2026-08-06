@@ -61,21 +61,11 @@ public class AccountService: IAccountService
         
         var user = await _userManager.FindByEmailAsync(dto.Email);
         if (user == null)
-        {
-            var result = ServiceResult<string>.SuccessResult(null);
-            result.Success = false;
-            result.Message = "Invalid details";
-            return result;
-        }
+            return ServiceResult<string>.UnauthorizedResult("Invalid details");
         
         var isValidPassword = await _userManager.CheckPasswordAsync(user, dto.Password);
         if (!isValidPassword)
-        {
-            var result = ServiceResult<string>.SuccessResult(null);
-            result.Success = false;
-            result.Message = "Invalid details";
-            return result;
-        }
+            return ServiceResult<string>.UnauthorizedResult("Invalid details");
         
         return ServiceResult<string>.SuccessResult("hjsgjd.sjhgj.sdfjhgfd");
     }
