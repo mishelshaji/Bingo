@@ -1,9 +1,13 @@
-﻿using Bingo.Core.Domains;
+﻿using System.Text;
+using Bingo.Core.Domains;
 using Bingo.Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Bingo.Infrastructure;
 
@@ -57,6 +61,35 @@ public static class InfrastructureDependencies
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._";
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        var key = Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]);
+        var signingKey = new SymmetricSecurityKey(key);
+        
+        var issuer = configuration["JwtSettings:Issuer"];
+        var audience = configuration["JwtSettings:Audience"];
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            // options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.MapInboundClaims = false;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = false,
+                IssuerSigningKey = signingKey,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidAudience = audience,
+                ValidIssuer = issuer,
+                RoleClaimType = "role",
+                NameClaimType = JwtRegisteredClaimNames.Sub,
+                ClockSkew = TimeSpan.Zero,
+            };
+        });
+        
+        services.AddAuthorization();
         // Returns the updated service collection so additional services can be registered.
         return services;
     }

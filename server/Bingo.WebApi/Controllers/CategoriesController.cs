@@ -1,10 +1,14 @@
-﻿using Bingo.Application.Abstractions;
+﻿using System.Security.Claims;
+using Bingo.Application.Abstractions;
 using Bingo.Application.Dtos.Category;
 using Bingo.Application.Types;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Bingo.WebApi.Controllers;
 
+[Authorize]
 public class CategoriesController(ICategoryService categoryService): ApplicationControllerBase
 {
     [HttpGet]

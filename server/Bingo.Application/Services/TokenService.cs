@@ -45,7 +45,7 @@ public class TokenService(IConfiguration configuration): ITokenService
 
         var handler = new JsonWebTokenHandler();
         var token = handler.CreateToken(descriptor);
-
+        
         return ServiceResult<string>.SuccessResult(token);
     }
 }
