@@ -84,7 +84,7 @@ public static class InfrastructureDependencies
                 ValidAudience = audience,
                 ValidIssuer = issuer,
                 RoleClaimType = "role",
-                NameClaimType = JwtRegisteredClaimNames.Sub,
+                NameClaimType = JwtRegisteredClaimNames.Name,
                 ClockSkew = TimeSpan.Zero,
             };
         });
